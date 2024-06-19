@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <time.h>
 #include "time_client.h"
 
 #define KEY_FILE_NAME    "../../certs/client_privkey.pem"
@@ -37,17 +38,28 @@
 #define COMMON_NAME      "dummy/server"
 #define BUF_LEN          32
 
+void wait_random_ms(int min_ms, int max_ms)
+{
+    srand(time(NULL));
+    int random_ms = min_ms + rand() % (max_ms - min_ms + 1);
+
+    useconds_t microseconds = (useconds_t)random_ms * 1000;
+
+    usleep(microseconds);
+}
+
 int main(int argc, char **argv)
 {
     time_client_t client = {0};
     char buf[BUF_LEN] = {0};
     int ret = 0;
 
-    if (argc != 3)
+    if (argc != 4)
     {
         fprintf(stderr, "usage: time_client host port\n");
         fprintf(stderr, "    host: IP address or host name to connect to\n");
         fprintf(stderr, "    port: port number to connect to\n");
+        fprintf(stderr, "    periodic_send_interval_sec: periodic send interval in seconds\n");
         return EXIT_FAILURE;
     }
     ret = time_client_init();
@@ -55,6 +67,7 @@ int main(int argc, char **argv)
     {
         return EXIT_FAILURE;
     }
+    wait_random_ms(1000, 4000);
     ret = time_client_create(&client,
                              argv[1],
                              argv[2],
@@ -78,7 +91,14 @@ int main(int argc, char **argv)
             return EXIT_FAILURE;
         }
         printf("time: '%s'\n", buf);
-        sleep(1);
+        // int sleep_sec = atoi(argv[3]);
+        // if (sleep_sec == 0)
+        // {
+        //     return EXIT_FAILURE;
+        // }
+        sleep(0);
+        fflush(stdout);
+        wait_random_ms(5000, 8000);
     }
     time_client_destroy(&client);
     time_client_deinit();
