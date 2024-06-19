@@ -38,11 +38,11 @@
 
 #define TIME_SERVER_URI_PATH_BUF_LEN  32
 #define TIME_SERVER_PAYLOAD_BUF_LEN   32                                        /**< Buffer of at least 36 bytes for ctime_r to write to */
-#define TIME_SERVER_SMALL_BUF_NUM     128                                       /**< Number of buffers in the small memory allocator */
+#define TIME_SERVER_SMALL_BUF_NUM     4096                                       /**< Number of buffers in the small memory allocator */
 #define TIME_SERVER_SMALL_BUF_LEN     256                                       /**< Length of each buffer in the small memory allocator */
-#define TIME_SERVER_MEDIUM_BUF_NUM    128                                       /**< Number of buffers in the medium memory allocator */
+#define TIME_SERVER_MEDIUM_BUF_NUM    4096                                       /**< Number of buffers in the medium memory allocator */
 #define TIME_SERVER_MEDIUM_BUF_LEN    1024                                      /**< Length of each buffer in the medium memory allocator */
-#define TIME_SERVER_LARGE_BUF_NUM     32                                        /**< Number of buffers in the large memory allocator */
+#define TIME_SERVER_LARGE_BUF_NUM     4096                                        /**< Number of buffers in the large memory allocator */
 #define TIME_SERVER_LARGE_BUF_LEN     8192                                      /**< Length of each buffer in the large memory allocator */
 
 static int time_server_handle_time(coap_server_trans_t *trans, coap_msg_t *req, coap_msg_t *resp)
