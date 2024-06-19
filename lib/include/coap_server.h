@@ -43,7 +43,7 @@
 #include "coap_msg.h"
 #include "coap_ipv.h"
 
-#define COAP_SERVER_NUM_TRANS                       8                           /**< Maximum number of active transactions per server */
+#define COAP_SERVER_NUM_TRANS                       10000                           /**< Maximum number of active transactions per server */
 #define COAP_SERVER_ADDR_BUF_LEN                    128                         /**< Buffer length for host addresses */
 #define COAP_SERVER_DIAG_PAYLOAD_LEN                128                         /**< Buffer length for diagnostic payloads */
 
