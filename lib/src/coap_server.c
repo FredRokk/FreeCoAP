@@ -400,7 +400,7 @@ static int coap_server_trans_dtls_handshake(coap_server_trans_t *trans)
     int ret = 0;
     int i = 0;
 
-    coap_log_info("Initiating DTLS handshake");
+    coap_log_info("Initiating DTLS handshake {%s}", trans->client_addr);
     for (i = 0; i < COAP_SERVER_DTLS_HANDSHAKE_ATTEMPTS; i++)
     {
         errno = 0;
@@ -2561,11 +2561,11 @@ int coap_server_run(coap_server_t *server)
         {
             if ((ret == -ETIMEDOUT) || (ret == -ECONNRESET))
             {
-                coap_log_info("%s", strerror(-ret));
+                coap_log_info("coap_server_run: %s", strerror(-ret));
             }
             else if (ret != -1)  /* a return value of -1 indicates a DTLS error */
             {
-                coap_log_error("%s", strerror(-ret));
+                coap_log_error("coap_server_run: %s", strerror(-ret));
             }
         }
     }
