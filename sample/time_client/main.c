@@ -54,12 +54,14 @@ int main(int argc, char **argv)
     char buf[BUF_LEN] = {0};
     int ret = 0;
 
-    if (argc != 4)
+    if (argc != 5)
     {
         fprintf(stderr, "usage: time_client host port\n");
         fprintf(stderr, "    host: IP address or host name to connect to\n");
         fprintf(stderr, "    port: port number to connect to\n");
-        fprintf(stderr, "    periodic_send_interval_sec: periodic send interval in seconds\n");
+        fprintf(stderr, "    key_path: filepath for key\n");
+        fprintf(stderr, "    certificate_path: filepath for certificate\n");
+
         return EXIT_FAILURE;
     }
     ret = time_client_init();
@@ -67,12 +69,12 @@ int main(int argc, char **argv)
     {
         return EXIT_FAILURE;
     }
-    wait_random_ms(1000, 4000);
+    //wait_random_ms(1000, 4000);
     ret = time_client_create(&client,
                              argv[1],
                              argv[2],
-                             KEY_FILE_NAME,
-                             CERT_FILE_NAME,
+                             argv[3],
+                             argv[4],
                              TRUST_FILE_NAME,
                              CRL_FILE_NAME,
                              COMMON_NAME);
